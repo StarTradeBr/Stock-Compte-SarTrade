@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stock Compte Roblox - StarTrade</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1a0000, #4d0000);
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+    height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px 60px 20px;
+    text-align: center;
+    z-index: 10;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 3em;
+    margin-bottom: 30px;
+    text-shadow: 0 0 8px #ff0000;
+  }
+
+  input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    font-size: 1.2em;
+    border: 2px solid #ff0000;
+    border-radius: 5px;
+    background: transparent;
+    color: #fff;
+    outline: none;
+    margin-bottom: 30px;
+    transition: 0.3s;
+  }
+  input[type="text"]:focus {
+    border-color: #ff6666;
+    box-shadow: 0 0 10px #ff6666;
+  }
+
+  .btn-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .btn-list button {
+    background-color: #330000;
+    border: 2px solid #ff0000;
+    color: #fff;
+    font-size: 1.1em;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.4s;
+    box-shadow: 0 0 8px #ff0000;
+    user-select: none;
+  }
+  .btn-list button:hover {
+    background-color: #ff0000;
+    color: #fff;
+    box-shadow: 0 0 15px #ff4d4d;
+  }
+
+  /* Snowflake styles */
+  .snowflake {
+    position: fixed;
+    top: -10px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 1000;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(0);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(110vh);
+      opacity: 0.8;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Stock Compte Roblox - StarTrade</h1>
+  <input type="text" id="searchInput" placeholder="Rechercher un pseudo..." />
+  <div class="btn-list" id="btnList">
+    <!-- Boutons générés en JS -->
+  </div>
+</div>
+
+<script>
+const profils = [
+"QuantumRogue42",
+"FrostPhoenix776",
+"NovaSamurai91",
+"GlitchKnight238",
+"InfernoWolf560",
+"CypherDragon88",
+"ShadowViking14",
+"PixelHunter352",
+"RogueShark50",
+"CryptoGhost98",
+"EpicStorm200584",
+"ToxicNinjaVoid2016",
+"Master_Knight48",
+"SavannahEagl3Om3ga",
+"ZoeSilverBlock",
+"Silver_Beast70",
+"XxIsabellaBlizzardZo",
+"S3bastianBlizzardMas",
+"NoraChillAqua2018",
+"GalaxyArrow2021",
+"StormSlime64",
+"AmeliaSky35",
+"PRISM_Power68",
+"XxMoonDarkBlockxX54",
+"JulianShadow48",
+"LightStormyEpic",
+"Om3gaH3roHaz3",
+"GoldenZoomEcho26",
+"M00nRiderPulse",
+"Henry_P0WER67",
+"AriaCodeHunter",
+"XxOwenGamerxX2016",
+"Qu33nSkat3rGam3r",
+"EzraCrazeHyper",
+"L0ganFlash2010",
+"BrooklynVortexDragon",
+"PandaOmegaDragon",
+"BladeFusion75",
+"HunterBlast92",
+"XxOliverAlphaPandaxX",
+"CrystalUltra44",
+"V0rtex_MAGIC53",
+"XxAriaVoidxX73",
+"XXB3AST_L3g3ndxX",
+"WillowCrystalChill",
+"ChaseDuck2018",
+"ChasePrimal51",
+"MasterViperEpic",
+"OliverR0gue53YT",
+"Ech0Gh0stPrimal",
+"BuilderHunterSkyYT",
+"GhostRiderwalking"
+];
+
+const btnList = document.getElementById('btnList');
+const searchInput = document.getElementById('searchInput');
+
+function createButton(pseudo) {
+  const btn = document.createElement('button');
+  btn.textContent = pseudo;
+  btn.onclick = () => {
+    const url = "https://www.roblox.com/users/search?keyword=" + encodeURIComponent(pseudo);
+    window.open(url, '_blank');
+  };
+  return btn;
+}
+
+function displayButtons(list) {
+  btnList.innerHTML = '';
+  list.forEach(pseudo => {
+    btnList.appendChild(createButton(pseudo));
+  });
+}
+
+searchInput.addEventListener('input', () => {
+  const filter = searchInput.value.toLowerCase();
+  const filtered = profils.filter(p => p.toLowerCase().includes(filter));
+  displayButtons(filtered);
+});
+
+displayButtons(profils);
+
+// Création des flocons de neige
+
+const snowflakeCount = 150;
+
+function randomBetween(min, max) {
+  return min + Math.random() * (max - min);
+}
+
+for(let i = 0; i < snowflakeCount; i++) {
+  const snowflake = document.createElement('div');
+  snowflake.classList.add('snowflake');
+  const size = randomBetween(2, 6);
+  snowflake.style.width = size + 'px';
+  snowflake.style.height = size + 'px';
+  snowflake.style.left = Math.random() * 100 + 'vw';
+  snowflake.style.animationDuration = randomBetween(15, 25) + 's'; // Plus long = plus lent
+  snowflake.style.animationDelay = '-' + Math.random() * 25 + 's';
+  document.body.appendChild(snowflake);
+}
+</script>
+
+</body>
+</html>
